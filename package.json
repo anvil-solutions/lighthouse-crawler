@@ -1,14 +1,17 @@
 {
   "type": "module",
+  "name": "lighthouse-crawler",
+  "bin": "./src/index.js",
   "scripts": {
     "eslint": "eslint --no-eslintrc -c .eslintrc.json .",
     "lint": "npm run eslint && npm run tsc && npm run stylelint",
-    "start": "node ./src/index.js",
     "stylelint": "stylelint '**/*.css'",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.1.0",
+    "@types/node": "^20.14.2",
+    "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
     "eslint": "8.57.0",
@@ -25,6 +28,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "htmlparser2": "^9.1.0"
+    "htmlparser2": "^9.1.0",
+    "yargs": "^17.7.2"
   }
 }

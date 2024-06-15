@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Crawler } from './modules/crawler/crawler.js';
+import { Reporter } from './modules/reporter/reporter.js';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
@@ -18,4 +19,7 @@ const { start } = await yargs(hideBin(process.argv))
 
 const crawler = new Crawler(start);
 await crawler.crawl();
-console.warn(crawler.results);
+
+const reportFile = await Reporter.createReport(crawler.results);
+
+process.stdout.write(`file://${reportFile}\n`);

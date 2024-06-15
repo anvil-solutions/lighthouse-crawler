@@ -20,6 +20,6 @@ const { start } = await yargs(hideBin(process.argv))
 const crawler = new Crawler(start);
 await crawler.crawl();
 
-const reportFile = await Reporter.createReport(crawler.results);
+const reportFile = await Reporter.createReport(crawler.getResults());
 
 process.stdout.write(`file://${reportFile}\n`);

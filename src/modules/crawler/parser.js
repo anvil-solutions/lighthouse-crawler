@@ -52,7 +52,10 @@ export const Parser = {
     parser.write(response);
     parser.end();
 
-    return { links: [...links], title };
+    return {
+      links: [...links].sort((first, second) => first.localeCompare(second)),
+      title
+    };
   }
 };
 

@@ -12,7 +12,7 @@ export class Crawler {
   #visited = new Set();
 
   /** @type {PageData[]} */
-  results = [];
+  #results = [];
 
   /**
    * @param {string} startUrl
@@ -41,9 +41,18 @@ export class Crawler {
       location: formattedUrl,
       path: new URL(formattedUrl).pathname
     };
-    this.results.push(pageData);
+    this.#results.push(pageData);
 
     // eslint-disable-next-line no-await-in-loop -- Do not spam network requests.
     for (const location of pageData.links) await this.crawl(location);
+  }
+
+  /**
+   * @returns {PageData[]}
+   */
+  getResults() {
+    return this.#results.sort(
+      (first, second) => first.path.localeCompare(second.path)
+    );
   }
 }

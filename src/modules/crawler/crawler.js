@@ -38,7 +38,8 @@ export class Crawler {
 
     const pageData = {
       ...Parser.parse(this.#baseUrl, response),
-      location: formattedUrl
+      location: formattedUrl,
+      path: new URL(formattedUrl).pathname
     };
     this.results.push(pageData);
 

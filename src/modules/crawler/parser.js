@@ -6,7 +6,7 @@ export const Parser = {
   /**
    * @param {string} baseUrl
    * @param {string} response
-   * @returns {Omit<PageData, 'location'>}
+   * @returns {BasicPageData}
    */
   parse(baseUrl, response) {
     /** @type {Set<string>} */

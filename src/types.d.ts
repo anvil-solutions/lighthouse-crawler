@@ -1,5 +1,10 @@
-interface PageData {
+interface BasicPageData {
   links: string[];
-  location: string;
   title: string;
 }
+
+interface PageData extends BasicPageData {
+  location: string;
+  path: string;
+}
+

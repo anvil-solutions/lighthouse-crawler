@@ -38,3 +38,11 @@ svg {
   display: block;
   margin: auto;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background: #121212;
+    color: white;
+    color-scheme: dark;
+  }
+}

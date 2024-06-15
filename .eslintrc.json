@@ -18,6 +18,15 @@
   "ignorePatterns": [
     "out/*"
   ],
+  "overrides": [
+    {
+      "files": ["./src/assets/**/*.js"],
+      "env": {
+        "browser": true,
+        "node": false
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",

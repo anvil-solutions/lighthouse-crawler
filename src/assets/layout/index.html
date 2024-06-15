@@ -12,14 +12,4 @@
   <h2>Pages</h2>
   {{ content }}
 </main>
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({
-    maxEdges: Number.MAX_SAFE_INTEGER,
-    maxTextSize: Number.MAX_SAFE_INTEGER,
-    startOnLoad: true,
-    theme: window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'default'
-  });
-</script>
+<script src="./index.js"></script>

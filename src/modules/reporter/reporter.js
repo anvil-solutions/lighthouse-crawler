@@ -1,6 +1,7 @@
-import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { Layout } from './layout.js';
 import { Renderer } from '../renderer/renderer.js';
+import { build } from 'esbuild';
 import path from 'node:path';
 
 const OUT_DIR = './out/';
@@ -17,7 +18,20 @@ async function cleanOutput() {
  * @returns {Promise<void>}
  */
 async function copyStaticAssets() {
-  await cp('./src/assets/static/', OUT_DIR, { recursive: true });
+  const entries = await readdir(
+    './src/assets/static/',
+    { recursive: true, withFileTypes: true }
+  );
+  await build({
+    bundle: true,
+    entryPoints: entries
+      .filter(entry => entry.isFile())
+      .map(entry => path.join(entry.parentPath, entry.name)),
+    format: 'iife',
+    minify: true,
+    outdir: OUT_DIR,
+    sourcemap: true
+  });
 }
 
 /**

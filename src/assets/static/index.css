@@ -1,9 +1,15 @@
 * {
   font-family: system-ui;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 2rem;
+}
+
+main {
+  max-width: 1080px;
+  margin: auto;
 }
 
 details > summary {

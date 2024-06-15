@@ -1,4 +1,4 @@
-<h3>{{ path }}</h3>
+<h3 id="{{ path }}"><a href="#{{ path }}">{{ path }}</a></h3>
 <table>
   <tr>
     <th>Title</th>
@@ -6,7 +6,10 @@
   </tr>
   <tr>
     <th>Path</th>
-    <td><a href="{{ location }}" target="_blank">{{ path }}</a></td>
+    <td>
+      <a href="{{ location }}" target="_blank">{{ path }}</a>
+      <span>🔗</span>
+    </td>
   </tr>
   <tr>
     <th>Links</th>

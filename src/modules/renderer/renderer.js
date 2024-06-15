@@ -33,7 +33,7 @@ export class Renderer {
 
     return `
       ${page.path}("${page.title}")
-      click ${page.path} "${page.location}"
+      click ${page.path} "#${page.path}"
       `;
   }
 

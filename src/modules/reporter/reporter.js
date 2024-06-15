@@ -32,10 +32,19 @@ async function createReport(pages) {
   const mainLayout = await Layout.fromAssets('main');
   const indexLayout = await Layout.fromAssets('index');
   const pageInfoLayout = await Layout.fromAssets('page-info');
-  const listItemLayout = await Layout.fromAssets('list-item');
+  const linkListItemLayout = await Layout.fromAssets('link-list-item');
 
   mainLayout.addVariable('content', indexLayout);
   indexLayout
+    .addVariable(
+      'pages',
+      pages.map(
+        page => Layout.from(linkListItemLayout)
+          .addVariable('href', `#${page.path}`)
+          .addVariable('text', page.path)
+          .toString()
+      ).join('')
+    )
     .addVariable('full_diagram', renderer.links())
     .addVariable(
       'content',
@@ -43,11 +52,13 @@ async function createReport(pages) {
         page => Layout.from(pageInfoLayout)
           .addVariable(
             'links',
-            page.links.map(
-              link => Layout.from(listItemLayout)
-                .addVariable('content', new URL(link).pathname)
-                .toString()
-            ).join('')
+            page.links.map(link => {
+              const linkPath = new URL(link).pathname;
+              return Layout.from(linkListItemLayout)
+                .addVariable('href', `#${linkPath}`)
+                .addVariable('text', linkPath)
+                .toString();
+            }).join('')
           )
           .addVariable('location', page.location)
           .addVariable('path', page.path)

@@ -15,6 +15,14 @@ export class Layout {
   }
 
   /**
+   * @param {Layout} layout
+   * @returns {Layout}
+   */
+  static from(layout) {
+    return new Layout(layout.#layout);
+  }
+
+  /**
    * @param {string} name
    * @returns {Promise<Layout>}
    */

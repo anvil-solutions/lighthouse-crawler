@@ -1,0 +1,18 @@
+<main>
+  <h1>Lighthouse Crawler</h1>
+  <h2>Sitemap</h2>
+  <details>
+    <summary>Click here to expand or collapse the full sitemap.</summary>
+    <pre class="mermaid">{{ full_diagram }}</pre>
+  </details>
+  <h2>Pages</h2>
+  {{ content }}
+</main>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    maxEdges: Number.MAX_SAFE_INTEGER,
+    maxTextSize: Number.MAX_SAFE_INTEGER,
+    startOnLoad: true
+  });
+</script>

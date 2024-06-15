@@ -1,0 +1,29 @@
+<h3>{{ path }}</h3>
+<table>
+  <tr>
+    <th>Title</th>
+    <td>{{ title }}</td>
+  </tr>
+  <tr>
+    <th>Path</th>
+    <td><a href="{{ location }}" target="_blank">{{ path }}</a></td>
+  </tr>
+  <tr>
+    <th>Links</th>
+    <td>
+      <ul>{{ links }}</ul>
+    </td>
+  </tr>
+  <tr>
+    <th>Links to page</th>
+    <td>
+      <pre class="mermaid">{{ to_diagram }}</pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Links from page</th>
+    <td>
+      <pre class="mermaid">{{ from_diagram }}</pre>
+    </td>
+  </tr>
+</table>

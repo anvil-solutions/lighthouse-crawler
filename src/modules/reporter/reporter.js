@@ -1,5 +1,6 @@
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { Layout } from './layout.js';
+import { Renderer } from '../renderer/renderer.js';
 import path from 'node:path';
 
 const OUT_DIR = './out/';
@@ -20,19 +21,44 @@ async function copyStaticAssets() {
 }
 
 /**
- * @param {PageData[]} pageData
+ * @param {PageData[]} pages
  * @returns {Promise<string>}
  */
-async function createReport(pageData) {
+async function createReport(pages) {
   await cleanOutput();
   await copyStaticAssets();
 
+  const renderer = new Renderer(pages);
   const mainLayout = await Layout.fromAssets('main');
-  await writeFile(
-    path.join(OUT_DIR, 'index.html'),
-    mainLayout.addVariable('raw', JSON.stringify(pageData, null, 2)).toString()
-  );
+  const indexLayout = await Layout.fromAssets('index');
+  const pageInfoLayout = await Layout.fromAssets('page-info');
+  const listItemLayout = await Layout.fromAssets('list-item');
 
+  mainLayout.addVariable('content', indexLayout);
+  indexLayout
+    .addVariable('full_diagram', renderer.links())
+    .addVariable(
+      'content',
+      pages.map(
+        page => Layout.from(pageInfoLayout)
+          .addVariable(
+            'links',
+            page.links.map(
+              link => Layout.from(listItemLayout)
+                .addVariable('content', new URL(link).pathname)
+                .toString()
+            ).join('')
+          )
+          .addVariable('location', page.location)
+          .addVariable('path', page.path)
+          .addVariable('title', page.title)
+          .addVariable('to_diagram', renderer.linksToPage(page))
+          .addVariable('from_diagram', renderer.linksFromPage(page))
+          .toString()
+      ).join('')
+    );
+
+  await writeFile(path.join(OUT_DIR, 'index.html'), mainLayout.toString());
   return path.resolve(OUT_DIR, 'index.html');
 }
 

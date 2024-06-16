@@ -2,6 +2,7 @@ import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { Layout } from './layout.js';
 import { Renderer } from '../renderer/renderer.js';
 import { build } from 'esbuild';
+import { getAverageScores } from '../lighthouse-runner/utils.js';
 import path from 'node:path';
 
 const OUT_DIR = './out/';
@@ -39,7 +40,6 @@ async function copyStaticAssets() {
  * @returns {Promise<string>}
  */
 async function createReport(pages) {
-  await cleanOutput();
   await copyStaticAssets();
 
   const renderer = new Renderer(pages);
@@ -47,9 +47,20 @@ async function createReport(pages) {
   const indexLayout = await Layout.fromAssets('index');
   const pageInfoLayout = await Layout.fromAssets('page-info');
   const linkListItemLayout = await Layout.fromAssets('link-list-item');
+  const averageScores = getAverageScores(pages);
 
   mainLayout.addVariable('content', indexLayout);
   indexLayout
+    .addVariable('performance', averageScores.performance?.toString() ?? '!')
+    .addVariable(
+      'accessibility',
+      averageScores.accessibility?.toString() ?? '!'
+    )
+    .addVariable(
+      'best_practices',
+      averageScores['best-practices']?.toString() ?? '!'
+    )
+    .addVariable('seo', averageScores.seo?.toString() ?? '!')
     .addVariable(
       'pages',
       pages.map(
@@ -77,6 +88,20 @@ async function createReport(pages) {
           .addVariable('location', page.location)
           .addVariable('path', page.path)
           .addVariable('title', page.title)
+          .addVariable(
+            'performance',
+            page.result?.scores.performance?.toString() ?? '!'
+          )
+          .addVariable(
+            'accessibility',
+            page.result?.scores.accessibility?.toString() ?? '!'
+          )
+          .addVariable(
+            'best_practices',
+            page.result?.scores['best-practices']?.toString() ?? '!'
+          )
+          .addVariable('seo', page.result?.scores.seo?.toString() ?? '!')
+          .addVariable('report', page.result?.file ?? 'about:blank')
           .addVariable('to_diagram', renderer.linksToPage(page))
           .addVariable('from_diagram', renderer.linksFromPage(page))
           .toString()
@@ -87,4 +112,4 @@ async function createReport(pages) {
   return path.resolve(OUT_DIR, 'index.html');
 }
 
-export const Reporter = { createReport };
+export const Reporter = { cleanOutput, createReport };

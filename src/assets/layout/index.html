@@ -2,8 +2,30 @@
   <h1>Lighthouse Crawler</h1>
   <h2>Table of Contents</h2>
   <nav>
-    <ul>{{ pages }}</ul>
+    <ul>
+      <li>Combined Result</li>
+      <li>Sitemap</li>
+      <li>
+        <span>Pages</span>
+        <ul>{{ pages }}</ul>
+      </li>
+    </ul>
   </nav>
+  <h2>Combined Result</h2>
+  <table>
+    <tr>
+      <th>Performance</th>
+      <th>Accessibility</th>
+      <th>Best Practices</th>
+      <th>SEO</th>
+    </tr>
+    <tr>
+      <td>{{ performance }}</td>
+      <td>{{ accessibility }}</td>
+      <td>{{ best_practices }}</td>
+      <td>{{ seo }}</td>
+    </tr>
+  </table>
   <h2>Sitemap</h2>
   <details>
     <summary>Click here to expand or collapse the full sitemap.</summary>

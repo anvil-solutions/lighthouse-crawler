@@ -2,30 +2,49 @@
 <table>
   <tr>
     <th>Title</th>
-    <td>{{ title }}</td>
+    <td colspan="4">{{ title }}</td>
   </tr>
   <tr>
     <th>Path</th>
-    <td>
+    <td colspan="4">
       <a href="{{ location }}" target="_blank">{{ path }}</a>
       <span>🔗</span>
     </td>
   </tr>
   <tr>
+    <th rowspan="3">Scores</th>
+    <th>Performance</th>
+    <th>Accessibility</th>
+    <th>Best Practices</th>
+    <th>SEO</th>
+  </tr>
+  <tr>
+    <td>{{ performance }}</td>
+    <td>{{ accessibility }}</td>
+    <td>{{ best_practices }}</td>
+    <td>{{ seo }}</td>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <a href="./reports/{{ report }}" target="_blank">Report</a>
+      <span>🔗</span>
+    </td>
+  </tr>
+  <tr>
     <th>Links</th>
-    <td>
+    <td colspan="4">
       <ul>{{ links }}</ul>
     </td>
   </tr>
   <tr>
     <th>Links to page</th>
-    <td>
+    <td colspan="4">
       <pre class="mermaid">{{ to_diagram }}</pre>
     </td>
   </tr>
   <tr>
     <th>Links from page</th>
-    <td>
+    <td colspan="4">
       <pre class="mermaid">{{ from_diagram }}</pre>
     </td>
   </tr>

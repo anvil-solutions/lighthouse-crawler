@@ -11,4 +11,5 @@ interface BasicPageData {
 interface PageData extends BasicPageData {
   location: string;
   path: string;
+  result?: LighthouseResult | null;
 }

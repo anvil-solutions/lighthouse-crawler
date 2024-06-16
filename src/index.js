@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 import { Crawler } from './modules/crawler/crawler.js';
+import {
+  LighthouseRunner
+} from './modules/lighthouse-runner/lighthouse-runner.js';
 import { Reporter } from './modules/reporter/reporter.js';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
@@ -20,6 +23,8 @@ const { start } = await yargs(hideBin(process.argv))
 const crawler = new Crawler(start);
 await crawler.crawl();
 
-const reportFile = await Reporter.createReport(crawler.getResults());
+await Reporter.cleanOutput();
+const results = await LighthouseRunner.onList(crawler.getResults());
+const reportFile = await Reporter.createReport(results);
 
-process.stdout.write(`file://${reportFile}\n`);
+process.stdout.write(`\nfile://${reportFile}\n`);

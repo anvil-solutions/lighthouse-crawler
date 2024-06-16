@@ -1,10 +1,11 @@
+import { logOnSameLine, padNumber } from './utils.js';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { launch } from 'chrome-launcher';
 import lighthouse from 'lighthouse';
 import path from 'node:path';
 
-export default class LighthouseRunner {
+export class LighthouseRunner {
   /** @type {string} */
   #outputDirectory;
 
@@ -17,6 +18,29 @@ export default class LighthouseRunner {
   constructor(outputDirectory) {
     this.#outputDirectory = path.normalize(outputDirectory);
     this.#chrome = launch({ chromeFlags: ['--headless'] });
+  }
+
+  /**
+   * @param {PageData[]} pages
+   * @returns {Promise<PageData[]>}
+   */
+  static async onList(pages) {
+    const runner = new LighthouseRunner('./out/reports/');
+    for (let index = 0; index < pages.length; index++) {
+      logOnSameLine(
+        `[${
+          padNumber(index + 1)
+        } / ${
+          padNumber(pages.length)
+        }] Testing '${
+          pages[index].path
+        }'`
+      );
+      // eslint-disable-next-line require-atomic-updates, no-await-in-loop -- Do not spam network requests.
+      pages[index].result = await runner.run(pages[index].location);
+    }
+    await runner.kill();
+    return pages;
   }
 
   /**
@@ -71,7 +95,3 @@ export default class LighthouseRunner {
     chrome.kill();
   }
 }
-
-const runner = new LighthouseRunner('./out/reports/');
-console.warn(await runner.run('http://localhost:8000/'));
-await runner.kill();

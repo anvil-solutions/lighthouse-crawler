@@ -12,8 +12,8 @@ export const Parser = {
     /** @type {Set<string>} */
     const links = new Set();
 
-    /** @type {string} */
-    let title = '';
+    /** @type {string | null} */
+    let title = null;
 
     let isInTitle = false;
 
@@ -46,7 +46,7 @@ export const Parser = {
        * @returns {void}
        */
       ontext(text) {
-        if (isInTitle) title += text;
+        if (isInTitle) title = (title ?? '') + text;
       }
     });
     parser.write(response);

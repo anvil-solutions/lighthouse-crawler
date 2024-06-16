@@ -32,7 +32,7 @@ export class Renderer {
     if (page === null) return '';
 
     return `
-      ${page.path}("${page.title}")
+      ${page.path}("${page.title ?? page.path}")
       click ${page.path} "#${page.path}"
       `;
   }

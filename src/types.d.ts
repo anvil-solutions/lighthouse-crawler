@@ -5,7 +5,7 @@ interface LighthouseResult {
 
 interface BasicPageData {
   links: string[];
-  title: string;
+  title: string | null;
 }
 
 interface PageData extends BasicPageData {

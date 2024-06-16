@@ -101,7 +101,7 @@ async function createReport(pages) {
           )
           .addVariable('location', page.location)
           .addVariable('path', page.path)
-          .addVariable('title', page.title)
+          .addVariable('title', page.title ?? page.path)
           .addVariable(
             'performance',
             page.result?.scores.performance?.toString() ?? '!'

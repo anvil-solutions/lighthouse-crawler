@@ -1,5 +1,6 @@
 import { get, getFormattedUrl } from './utils.js';
 import { Parser } from './parser.js';
+import { padNumber } from '../shared/utils.js';
 
 export class Crawler {
   /** @type {string} */
@@ -7,6 +8,9 @@ export class Crawler {
 
   /** @type {string} */
   #baseUrl;
+
+  /** @type {import('pino').Logger | null} */
+  #logger;
 
   /** @type {Set<string>} */
   #visited = new Set();
@@ -16,10 +20,12 @@ export class Crawler {
 
   /**
    * @param {string} startUrl
+   * @param {import('pino').Logger | null} logger
    */
-  constructor(startUrl) {
+  constructor(startUrl, logger) {
     this.#startUrl = getFormattedUrl(startUrl);
     this.#baseUrl = new URL(this.#startUrl).origin;
+    this.#logger = logger;
   }
 
   /**
@@ -31,7 +37,7 @@ export class Crawler {
     if (this.#visited.has(formattedUrl)) return;
 
     this.#visited.add(formattedUrl);
-    const response = await get(formattedUrl);
+    const response = await get(formattedUrl, this.#logger);
     if (response === null) return;
 
     const pageData = {
@@ -40,6 +46,11 @@ export class Crawler {
       path: new URL(formattedUrl).pathname
     };
     this.#results.push(pageData);
+    this.#logger?.debug(
+      '[%s] Visited "%s"',
+      padNumber(this.#results.length),
+      pageData.path
+    );
 
     // eslint-disable-next-line no-await-in-loop -- Do not spam network requests.
     for (const location of pageData.links) await this.crawl(location);

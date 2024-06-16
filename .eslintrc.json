@@ -120,10 +120,7 @@
     "max-lines-per-function": "off",
     "max-params": ["error", 5],
     "max-statements": ["error", 100],
-    "no-console": [
-      "error",
-      { "allow": ["warn", "error"] }
-    ],
+    "no-console": ["error"],
     "no-continue": "off",
     "no-inline-comments": [
       "error",

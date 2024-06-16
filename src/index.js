@@ -6,9 +6,10 @@ import {
 } from './modules/lighthouse-runner/lighthouse-runner.js';
 import { Reporter } from './modules/reporter/reporter.js';
 import { hideBin } from 'yargs/helpers';
+import { pino } from 'pino';
 import yargs from 'yargs/yargs';
 
-const { start, outputDirectory } = await yargs(hideBin(process.argv))
+const { start, outputDirectory, logLevel } = await yargs(hideBin(process.argv))
   .option('start', {
     alias: 's',
     demandOption: true,
@@ -23,20 +24,38 @@ const { start, outputDirectory } = await yargs(hideBin(process.argv))
     requiresArg: true,
     type: 'string'
   })
+  .option('log-level', {
+    alias: 'l',
+    default: 'info',
+    description: 'The log level',
+    requiresArg: true,
+    type: 'string'
+  })
   .help()
   .alias('help', 'h')
   .alias('version', 'v')
   .argv;
 
-const crawler = new Crawler(start);
+const logger = pino({
+  level: logLevel,
+  transport: {
+    options: {
+      colorize: true
+    },
+    target: 'pino-pretty'
+  }
+});
+
+const crawler = new Crawler(start, logger);
 await crawler.crawl();
 
 const reporter = new Reporter(outputDirectory);
 await reporter.cleanOutput();
 const results = await LighthouseRunner.onList(
   outputDirectory,
-  crawler.getResults()
+  crawler.getResults(),
+  logger
 );
 const reportFile = await reporter.createReport(results);
 
-process.stdout.write(`\nfile://${reportFile}\n`);
+logger.info('View the generated report at "file://%s".', reportFile);

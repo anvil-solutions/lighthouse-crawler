@@ -1,8 +1,8 @@
-import { logOnSameLine, padNumber } from './utils.js';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { launch } from 'chrome-launcher';
 import lighthouse from 'lighthouse';
+import { padNumber } from '../shared/utils.js';
 import path from 'node:path';
 
 export class LighthouseRunner {
@@ -23,21 +23,19 @@ export class LighthouseRunner {
   /**
    * @param {string} outputDirectory
    * @param {PageData[]} pages
+   * @param {import('pino').Logger | null} logger
    * @returns {Promise<PageData[]>}
    */
-  static async onList(outputDirectory, pages) {
+  static async onList(outputDirectory, pages, logger) {
     const runner = new LighthouseRunner(
       path.join(outputDirectory, '/reports/')
     );
     for (let index = 0; index < pages.length; index++) {
-      logOnSameLine(
-        `[${
-          padNumber(index + 1)
-        } / ${
-          padNumber(pages.length)
-        }] Testing '${
-          pages[index].path
-        }'`
+      logger?.info(
+        '[%s / %s] Testing "%s"',
+        padNumber(index + 1),
+        padNumber(pages.length),
+        pages[index].path
       );
       // eslint-disable-next-line require-atomic-updates, no-await-in-loop -- Do not spam network requests.
       pages[index].result = await runner.run(pages[index].location);

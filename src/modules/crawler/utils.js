@@ -1,8 +1,9 @@
 /**
  * @param {string} url
+ * @param {import("pino").Logger | null} logger
  * @returns {Promise<string | null>}
  */
-export async function get(url) {
+export async function get(url, logger) {
   try {
     const response = await fetch(url, { headers: { 'X-Test': '1' } });
     if (
@@ -12,7 +13,7 @@ export async function get(url) {
     ) return null;
     return await response.text();
   } catch {
-    console.warn(`Could not fetch '${url}'!`);
+    logger?.warn('Could not fetch "%s".', url);
     return null;
   }
 }

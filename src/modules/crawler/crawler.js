@@ -18,8 +18,6 @@ export class Crawler {
    * @param {string} startUrl
    */
   constructor(startUrl) {
-    if (!URL.canParse(startUrl)) throw new Error('Invalid start URL!');
-
     this.#startUrl = getFormattedUrl(startUrl);
     this.#baseUrl = new URL(this.#startUrl).origin;
   }

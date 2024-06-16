@@ -8,11 +8,19 @@ import { Reporter } from './modules/reporter/reporter.js';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
-const { start } = await yargs(hideBin(process.argv))
+const { start, outputDirectory } = await yargs(hideBin(process.argv))
   .option('start', {
     alias: 's',
-    default: 'http://localhost:80/',
+    demandOption: true,
     description: 'The URL to start with',
+    requiresArg: true,
+    type: 'string'
+  })
+  .option('output-directory', {
+    alias: 'o',
+    default: './out/',
+    description: 'The output directory',
+    requiresArg: true,
     type: 'string'
   })
   .help()
@@ -23,8 +31,12 @@ const { start } = await yargs(hideBin(process.argv))
 const crawler = new Crawler(start);
 await crawler.crawl();
 
-await Reporter.cleanOutput();
-const results = await LighthouseRunner.onList(crawler.getResults());
-const reportFile = await Reporter.createReport(results);
+const reporter = new Reporter(outputDirectory);
+await reporter.cleanOutput();
+const results = await LighthouseRunner.onList(
+  outputDirectory,
+  crawler.getResults()
+);
+const reportFile = await reporter.createReport(results);
 
 process.stdout.write(`\nfile://${reportFile}\n`);

@@ -21,11 +21,14 @@ export class LighthouseRunner {
   }
 
   /**
+   * @param {string} outputDirectory
    * @param {PageData[]} pages
    * @returns {Promise<PageData[]>}
    */
-  static async onList(pages) {
-    const runner = new LighthouseRunner('./out/reports/');
+  static async onList(outputDirectory, pages) {
+    const runner = new LighthouseRunner(
+      path.join(outputDirectory, '/reports/')
+    );
     for (let index = 0; index < pages.length; index++) {
       logOnSameLine(
         `[${

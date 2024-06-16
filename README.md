@@ -6,7 +6,7 @@ Once the setup is complete, you can execute the command below in the root
 directory of your project.
 
 ```bash
-npx lighthouse-crawler
+npx lighthouse-crawler --help
 ```
 
 Make sure you have npm (Node Package Manager) and Node.js installed on

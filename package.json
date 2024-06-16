@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "lighthouse-crawler",
-  "bin": "./src/index.js",
+  "bin": "./src/bin.js",
   "scripts": {
     "eslint": "eslint --no-eslintrc -c .eslintrc.json .",
     "lint": "npm run eslint && npm run tsc && npm run stylelint",

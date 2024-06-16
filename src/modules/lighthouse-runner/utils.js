@@ -1,3 +1,5 @@
+export const BEST_PRACTICES = 'best-practices';
+
 /**
  * @param {number} number
  * @returns {string}
@@ -37,4 +39,15 @@ export function getAverageScores(pages) {
     },
     {}
   );
+}
+
+/**
+ *
+ * @param {number | null} score
+ * @returns {string}
+ */
+export function getScoreColor(score) {
+  if (score === null || score < 0.5) return 'red';
+  else if (score < 0.9) return 'orange';
+  return 'green';
 }

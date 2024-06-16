@@ -1,8 +1,12 @@
+import {
+  BEST_PRACTICES,
+  getAverageScores,
+  getScoreColor
+} from '../lighthouse-runner/utils.js';
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { Layout } from './layout.js';
 import { Renderer } from '../renderer/renderer.js';
 import { build } from 'esbuild';
-import { getAverageScores } from '../lighthouse-runner/utils.js';
 import path from 'node:path';
 
 const OUT_DIR = './out/';
@@ -52,15 +56,25 @@ async function createReport(pages) {
   mainLayout.addVariable('content', indexLayout);
   indexLayout
     .addVariable('performance', averageScores.performance?.toString() ?? '!')
+    .addVariable('performance_color', getScoreColor(averageScores.performance))
     .addVariable(
       'accessibility',
       averageScores.accessibility?.toString() ?? '!'
     )
     .addVariable(
+      'accessibility_color',
+      getScoreColor(averageScores.accessibility)
+    )
+    .addVariable(
       'best_practices',
-      averageScores['best-practices']?.toString() ?? '!'
+      averageScores[BEST_PRACTICES]?.toString() ?? '!'
+    )
+    .addVariable(
+      'best_practices_color',
+      getScoreColor(averageScores[BEST_PRACTICES])
     )
     .addVariable('seo', averageScores.seo?.toString() ?? '!')
+    .addVariable('seo_color', getScoreColor(averageScores.seo))
     .addVariable(
       'pages',
       pages.map(
@@ -93,14 +107,30 @@ async function createReport(pages) {
             page.result?.scores.performance?.toString() ?? '!'
           )
           .addVariable(
+            'performance_color',
+            getScoreColor(page.result?.scores.performance ?? null)
+          )
+          .addVariable(
             'accessibility',
             page.result?.scores.accessibility?.toString() ?? '!'
           )
           .addVariable(
+            'accessibility_color',
+            getScoreColor(page.result?.scores.accessibility ?? null)
+          )
+          .addVariable(
             'best_practices',
-            page.result?.scores['best-practices']?.toString() ?? '!'
+            page.result?.scores[BEST_PRACTICES]?.toString() ?? '!'
+          )
+          .addVariable(
+            'best_practices_color',
+            getScoreColor(page.result?.scores[BEST_PRACTICES] ?? null)
           )
           .addVariable('seo', page.result?.scores.seo?.toString() ?? '!')
+          .addVariable(
+            'seo_color',
+            getScoreColor(page.result?.scores.seo ?? null)
+          )
           .addVariable('report', page.result?.file ?? 'about:blank')
           .addVariable('to_diagram', renderer.linksToPage(page))
           .addVariable('from_diagram', renderer.linksFromPage(page))

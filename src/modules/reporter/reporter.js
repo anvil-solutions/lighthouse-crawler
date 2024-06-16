@@ -34,7 +34,7 @@ export class Reporter {
    */
   async #copyStaticAssets() {
     const entries = await readdir(
-      './src/assets/static/',
+      path.join(import.meta.dirname, '../../assets/static/'),
       { recursive: true, withFileTypes: true }
     );
     await build({

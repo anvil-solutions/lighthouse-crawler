@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { readFile } from 'node:fs/promises';
 
 export class Layout {
@@ -27,7 +28,9 @@ export class Layout {
    * @returns {Promise<Layout>}
    */
   static async fromAssets(name) {
-    const file = await readFile(`./src/assets/layout/${name}.html`);
+    const file = await readFile(
+      path.join(import.meta.dirname, `../../assets/layout/${name}.html`)
+    );
     return new Layout(file.toString());
   }
 

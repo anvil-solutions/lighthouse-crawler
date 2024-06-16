@@ -1,4 +1,9 @@
-import { BEST_PRACTICES, getAverageScores, getScoreColor } from './utils.js';
+import {
+  BEST_PRACTICES,
+  getAverageScores,
+  getScoreColor,
+  getScoreString
+} from './utils.js';
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { Layout } from './layout.js';
 import { Renderer } from '../renderer/renderer.js';
@@ -60,28 +65,25 @@ export class Reporter {
 
     mainLayout.addVariable('content', indexLayout);
     indexLayout
-      .addVariable('performance', averageScores.performance?.toString() ?? '!')
+      .addVariable('performance', getScoreString(averageScores.performance))
       .addVariable(
         'performance_color',
         getScoreColor(averageScores.performance)
       )
-      .addVariable(
-        'accessibility',
-        averageScores.accessibility?.toString() ?? '!'
-      )
+      .addVariable('accessibility', getScoreString(averageScores.accessibility))
       .addVariable(
         'accessibility_color',
         getScoreColor(averageScores.accessibility)
       )
       .addVariable(
         'best_practices',
-        averageScores[BEST_PRACTICES]?.toString() ?? '!'
+        getScoreString(averageScores[BEST_PRACTICES])
       )
       .addVariable(
         'best_practices_color',
         getScoreColor(averageScores[BEST_PRACTICES])
       )
-      .addVariable('seo', averageScores.seo?.toString() ?? '!')
+      .addVariable('seo', getScoreString(averageScores.seo))
       .addVariable('seo_color', getScoreColor(averageScores.seo))
       .addVariable(
         'pages',
@@ -112,33 +114,30 @@ export class Reporter {
             .addVariable('title', page.title ?? page.path)
             .addVariable(
               'performance',
-              page.result?.scores.performance?.toString() ?? '!'
+              getScoreString(page.result?.scores.performance)
             )
             .addVariable(
               'performance_color',
-              getScoreColor(page.result?.scores.performance ?? null)
+              getScoreColor(page.result?.scores.performance)
             )
             .addVariable(
               'accessibility',
-              page.result?.scores.accessibility?.toString() ?? '!'
+              getScoreString(page.result?.scores.accessibility)
             )
             .addVariable(
               'accessibility_color',
-              getScoreColor(page.result?.scores.accessibility ?? null)
+              getScoreColor(page.result?.scores.accessibility)
             )
             .addVariable(
               'best_practices',
-              page.result?.scores[BEST_PRACTICES]?.toString() ?? '!'
+              getScoreString(page.result?.scores[BEST_PRACTICES])
             )
             .addVariable(
               'best_practices_color',
-              getScoreColor(page.result?.scores[BEST_PRACTICES] ?? null)
+              getScoreColor(page.result?.scores[BEST_PRACTICES])
             )
-            .addVariable('seo', page.result?.scores.seo?.toString() ?? '!')
-            .addVariable(
-              'seo_color',
-              getScoreColor(page.result?.scores.seo ?? null)
-            )
+            .addVariable('seo', getScoreString(page.result?.scores.seo))
+            .addVariable('seo_color', getScoreColor(page.result?.scores.seo))
             .addVariable('report', page.result?.file ?? 'about:blank')
             .addVariable('to_diagram', renderer.linksToPage(page))
             .addVariable('from_diagram', renderer.linksFromPage(page))

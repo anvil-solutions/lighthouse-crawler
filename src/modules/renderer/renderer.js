@@ -28,7 +28,7 @@ export class Renderer {
    * @param {PageData | null} page
    * @returns {string}
    */
-  static page(page) {
+  static page(page = null) {
     if (page === null) return '';
 
     return `
@@ -72,7 +72,7 @@ export class Renderer {
           .filter(link => link[1] === page.path)
           .map(
             ([from, to]) => `
-              ${Renderer.page(this.#pageMap.get(from) ?? null)}
+              ${Renderer.page(this.#pageMap.get(from))}
               ${from} --> ${to}
               `
           )
@@ -96,7 +96,7 @@ export class Renderer {
           .filter(link => link[0] === page.path)
           .map(
             ([from, to]) => `
-              ${Renderer.page(this.#pageMap.get(to) ?? null)}
+              ${Renderer.page(this.#pageMap.get(to))}
               ${from} --> ${to}
               `
           )

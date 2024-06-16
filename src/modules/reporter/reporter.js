@@ -1,8 +1,4 @@
-import {
-  BEST_PRACTICES,
-  getAverageScores,
-  getScoreColor
-} from '../lighthouse-runner/utils.js';
+import { BEST_PRACTICES, getAverageScores, getScoreColor } from './utils.js';
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import { Layout } from './layout.js';
 import { Renderer } from '../renderer/renderer.js';

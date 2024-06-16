@@ -5,6 +5,11 @@
 export async function get(url) {
   try {
     const response = await fetch(url, { headers: { 'X-Test': '1' } });
+    if (
+      response.headers.get(
+        'Content-Type'
+      )?.split(';')[0].toLowerCase() !== 'text/html'
+    ) return null;
     return await response.text();
   } catch {
     console.warn(`Could not fetch '${url}'!`);

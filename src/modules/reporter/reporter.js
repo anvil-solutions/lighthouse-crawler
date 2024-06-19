@@ -5,8 +5,8 @@ import {
   getScoreString
 } from './utils.js';
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { DiagramRenderer } from './diagram-renderer.js';
 import { Layout } from './layout.js';
-import { Renderer } from '../renderer/renderer.js';
 import { build } from 'esbuild';
 import path from 'node:path';
 
@@ -56,7 +56,7 @@ export class Reporter {
   async createReport(pages) {
     await this.#copyStaticAssets();
 
-    const renderer = new Renderer(pages);
+    const diagramRenderer = new DiagramRenderer(pages);
     const mainLayout = await Layout.fromAssets('main');
     const indexLayout = await Layout.fromAssets('index');
     const pageInfoLayout = await Layout.fromAssets('page-info');
@@ -94,7 +94,7 @@ export class Reporter {
             .toString()
         ).join('')
       )
-      .addVariable('full_diagram', renderer.links())
+      .addVariable('full_diagram', diagramRenderer.links())
       .addVariable(
         'content',
         pages.map(
@@ -139,8 +139,8 @@ export class Reporter {
             .addVariable('seo', getScoreString(page.result?.scores.seo))
             .addVariable('seo_color', getScoreColor(page.result?.scores.seo))
             .addVariable('report', page.result?.file ?? 'about:blank')
-            .addVariable('to_diagram', renderer.linksToPage(page))
-            .addVariable('from_diagram', renderer.linksFromPage(page))
+            .addVariable('to_diagram', diagramRenderer.linksToPage(page))
+            .addVariable('from_diagram', diagramRenderer.linksFromPage(page))
             .toString()
         ).join('')
       );

@@ -1,4 +1,4 @@
-export class Renderer {
+export class DiagramRenderer {
   /** @type {PageData[]} */
   #pages;
 
@@ -44,7 +44,7 @@ export class Renderer {
     /* eslint-disable @stylistic/indent */
     return `
       flowchart LR
-      ${this.#pages.map(page => Renderer.page(page)).join('\n')}
+      ${this.#pages.map(page => DiagramRenderer.page(page)).join('\n')}
       ${
         this.#links
           .map(
@@ -66,13 +66,13 @@ export class Renderer {
     /* eslint-disable @stylistic/indent */
     return `
       flowchart LR
-      ${Renderer.page(page)}
+      ${DiagramRenderer.page(page)}
       ${
         this.#links
           .filter(link => link[1] === page.path)
           .map(
             ([from, to]) => `
-              ${Renderer.page(this.#pageMap.get(from))}
+              ${DiagramRenderer.page(this.#pageMap.get(from))}
               ${from} --> ${to}
               `
           )
@@ -90,13 +90,13 @@ export class Renderer {
     /* eslint-disable @stylistic/indent */
     return `
       flowchart LR
-      ${Renderer.page(page)}
+      ${DiagramRenderer.page(page)}
       ${
         this.#links
           .filter(link => link[0] === page.path)
           .map(
             ([from, to]) => `
-              ${Renderer.page(this.#pageMap.get(to))}
+              ${DiagramRenderer.page(this.#pageMap.get(to))}
               ${from} --> ${to}
               `
           )

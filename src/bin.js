@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { exit } from 'node:process';
 import { generateReport } from './index.js';
 import { hideBin } from 'yargs/helpers';
 import { pino } from 'pino';
@@ -30,16 +31,19 @@ const { start, outputDirectory, logLevel } = await yargs(hideBin(process.argv))
   .help()
   .alias('help', 'h')
   .alias('version', 'v')
+  .check(argv => URL.canParse(argv.start))
   .argv;
 
 const logger = pino({
   level: logLevel,
   transport: {
-    options: {
-      colorize: true
-    },
     target: 'pino-pretty'
   }
 });
 
-await generateReport({ logger, outputDirectory, start });
+try {
+  await generateReport({ logger, outputDirectory, start });
+} catch (error) {
+  logger.fatal(error);
+  exit(1);
+}

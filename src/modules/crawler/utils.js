@@ -24,7 +24,11 @@ export async function get(url, logger) {
  * @returns {string | null}
  */
 export function getFormattedUrlIfLocal(url, base) {
-  if (URL.canParse(url) || url.startsWith('//')) return null;
+  if (
+    !URL.canParse(base) ||
+    URL.canParse(url) && new URL(url).origin !== new URL(base).origin ||
+    url.startsWith('//')
+  ) return null;
 
   const parsedUrl = new URL(url, base);
   return parsedUrl.origin + parsedUrl.pathname;

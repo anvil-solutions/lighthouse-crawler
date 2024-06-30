@@ -6,9 +6,6 @@ export class Crawler {
   /** @type {string} */
   #startUrl;
 
-  /** @type {string} */
-  #baseUrl;
-
   /** @type {import('pino').Logger | null} */
   #logger;
 
@@ -24,7 +21,6 @@ export class Crawler {
    */
   constructor(startUrl, logger) {
     this.#startUrl = getFormattedUrl(startUrl);
-    this.#baseUrl = new URL(this.#startUrl).origin;
     this.#logger = logger;
   }
 
@@ -41,7 +37,7 @@ export class Crawler {
     if (response === null) return;
 
     const pageData = {
-      ...Parser.parse(this.#baseUrl, response),
+      ...Parser.parse(url, response),
       location: formattedUrl,
       path: new URL(formattedUrl).pathname
     };

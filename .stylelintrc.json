@@ -7,6 +7,7 @@
     "property-no-vendor-prefix": null
   },
   "ignoreFiles": [
+    "coverage/**/*.*",
     "out/**/*.*"
   ]
 }

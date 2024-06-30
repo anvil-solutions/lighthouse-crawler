@@ -7,6 +7,8 @@
     "eslint": "eslint --no-eslintrc -c .eslintrc.json .",
     "lint": "npm run eslint && npm run tsc && npm run stylelint",
     "stylelint": "stylelint '**/*.css'",
+    "test": "vitest run",
+    "test:ui": "vitest --ui --coverage",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
@@ -17,6 +19,8 @@
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
     "eslint": "8.57.0",
     "eslint-plugin-array-func": "^4.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -28,7 +32,8 @@
     "eslint-plugin-unicorn": "^54.0.0",
     "stylelint": "^16.5.0",
     "stylelint-config-standard": "^36.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "vitest": "^1.6.0"
   },
   "dependencies": {
     "chrome-launcher": "^1.1.2",

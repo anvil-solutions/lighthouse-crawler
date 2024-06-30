@@ -16,6 +16,7 @@
     "plugin:unicorn/all"
   ],
   "ignorePatterns": [
+    "coverage/*",
     "out/*"
   ],
   "overrides": [

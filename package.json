@@ -9,7 +9,7 @@
     "stylelint": "stylelint '**/*.css'",
     "test": "vitest run",
     "test:ui": "vitest --ui --coverage",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2.1.0",

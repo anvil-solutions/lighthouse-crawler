@@ -1,3 +1,7 @@
+/**
+ * @import {BasicPageData} from '../shared/types.js'
+ */
+
 import { Parser as HtmlParser } from 'htmlparser2';
 import { getFormattedUrlIfLocal } from './utils.js';
 

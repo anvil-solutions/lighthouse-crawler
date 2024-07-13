@@ -1,3 +1,8 @@
+/**
+ * @import {Logger} from 'pino'
+ * @import {PageData} from './types'
+ */
+
 import { vi } from 'vitest';
 
 export const OUTPUT_DIRECTORY = 'out';
@@ -19,7 +24,7 @@ export const PAGE_DATA = {
 };
 
 // @ts-expect-error Not a complete mock.
-export const LOGGER_MOCK = /** @type {import("pino").Logger} */({
+export const LOGGER_MOCK = /** @type {Logger} */({
   debug: vi.fn(),
   error: vi.fn(),
   fatal: vi.fn(),

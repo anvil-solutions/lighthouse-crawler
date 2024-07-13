@@ -1,3 +1,7 @@
+/**
+ * @import {Logger} from 'pino'
+ */
+
 import { Crawler } from './modules/crawler/crawler.js';
 import {
   LighthouseRunner
@@ -8,7 +12,7 @@ import { Reporter } from './modules/reporter/reporter.js';
  * @typedef {object} Options
  * @property {string} start
  * @property {string} outputDirectory
- * @property {import('pino').Logger | null} logger
+ * @property {Logger | null} logger
  */
 
 /**

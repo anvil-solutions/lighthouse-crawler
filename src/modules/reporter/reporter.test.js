@@ -1,3 +1,7 @@
+/**
+ * @import {PageData} from '../shared/types.js'
+ */
+
 import {
   BASE_URL,
   OUTPUT_DIRECTORY,

@@ -1,3 +1,7 @@
+/**
+ * @import {PageData} from '../shared/types'
+ */
+
 export const BEST_PRACTICES = 'best-practices';
 
 /**

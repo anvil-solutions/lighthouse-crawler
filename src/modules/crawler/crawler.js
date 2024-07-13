@@ -1,3 +1,8 @@
+/**
+ * @import {Logger} from 'pino'
+ * @import {PageData} from '../shared/types.js'
+ */
+
 import { get, getFormattedUrl } from './utils.js';
 import { Parser } from './parser.js';
 import { padNumber } from '../shared/utils.js';
@@ -6,7 +11,7 @@ export class Crawler {
   /** @type {string} */
   #startUrl;
 
-  /** @type {import('pino').Logger | null} */
+  /** @type {Logger | null} */
   #logger;
 
   /** @type {Set<string>} */
@@ -17,7 +22,7 @@ export class Crawler {
 
   /**
    * @param {string} startUrl
-   * @param {import('pino').Logger | null} logger
+   * @param {Logger | null} logger
    */
   constructor(startUrl, logger) {
     this.#startUrl = getFormattedUrl(startUrl);

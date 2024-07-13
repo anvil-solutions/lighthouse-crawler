@@ -1,6 +1,10 @@
 /**
+ * @import {Logger} from 'pino'
+ */
+
+/**
  * @param {string} url
- * @param {import("pino").Logger | null} logger
+ * @param {Logger | null} logger
  * @returns {Promise<string | null>}
  */
 export async function get(url, logger) {

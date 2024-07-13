@@ -1,3 +1,7 @@
+/**
+ * @import {PageData} from '../shared/types.js'
+ */
+
 import { BASE_URL, PAGE_DATA } from '../shared/test-constants.js';
 import { describe, expect, it } from 'vitest';
 import { DiagramRenderer } from './diagram-renderer.js';

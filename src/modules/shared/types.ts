@@ -1,14 +1,14 @@
-interface LighthouseResult {
+export interface LighthouseResult {
   file: string;
   scores: Record<string, number | null>;
 }
 
-interface BasicPageData {
+export interface BasicPageData {
   links: string[];
   title: string | null;
 }
 
-interface PageData extends BasicPageData {
+export interface PageData extends BasicPageData {
   location: string;
   path: string;
   result?: LighthouseResult | null;

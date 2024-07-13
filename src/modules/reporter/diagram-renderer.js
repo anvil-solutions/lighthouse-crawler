@@ -1,3 +1,7 @@
+/**
+ * @import {PageData} from '../shared/types'
+ */
+
 export class DiagramRenderer {
   /** @type {PageData[]} */
   #pages;

@@ -1,3 +1,10 @@
+/**
+ * @import {LaunchedChrome} from 'chrome-launcher'
+ * @import {LighthouseResult} from '../shared/types.js'
+ * @import {Logger} from 'pino'
+ * @import {PageData} from '../shared/types.js'
+ */
+
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { launch } from 'chrome-launcher';
@@ -9,7 +16,7 @@ export class LighthouseRunner {
   /** @type {string} */
   #outputDirectory;
 
-  /** @type {Promise<import('chrome-launcher').LaunchedChrome>} */
+  /** @type {Promise<LaunchedChrome>} */
   #chrome;
 
   /**
@@ -23,7 +30,7 @@ export class LighthouseRunner {
   /**
    * @param {string} outputDirectory
    * @param {PageData[]} pages
-   * @param {import('pino').Logger | null} logger
+   * @param {Logger | null} logger
    * @returns {Promise<PageData[]>}
    */
   static async onList(outputDirectory, pages, logger) {

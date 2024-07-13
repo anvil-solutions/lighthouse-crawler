@@ -1,3 +1,7 @@
+/**
+ * @import {PageData} from '../shared/types.js'
+ */
+
 import {
   LOGGER_MOCK,
   OUTPUT_DIRECTORY,

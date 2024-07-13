@@ -17,6 +17,7 @@
   ],
   "ignorePatterns": [
     "coverage/*",
+    "generated/*",
     "out/*"
   ],
   "overrides": [

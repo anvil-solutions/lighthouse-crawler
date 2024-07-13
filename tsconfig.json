@@ -15,6 +15,7 @@
   ],
   "exclude": [
     "coverage/*",
+    "generated/*",
     "out/*"
   ]
 }

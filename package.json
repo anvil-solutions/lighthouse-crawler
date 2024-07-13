@@ -3,8 +3,10 @@
   "name": "lighthouse-crawler",
   "main": "./src/index.js",
   "bin": "./src/bin.js",
+  "types": "./generated/index.d.ts",
   "scripts": {
     "eslint": "eslint --no-eslintrc -c .eslintrc.json .",
+    "generate-types": "rm -rf ./generated && tsc -p tsconfig.d.json",
     "lint": "npm run eslint && npm run tsc && npm run stylelint",
     "stylelint": "stylelint '**/*.css'",
     "test": "vitest run",

@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "generated",
+    "declarationMap": true,
+    "removeComments": true
+  },
+  "exclude": [
+    "**/*.config.js",
+    "**/*.test.js",
+    "coverage/*",
+    "generated/*",
+    "out/*"
+  ]
+}

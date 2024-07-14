@@ -1,17 +1,24 @@
 # Lighthouse Crawler
 
-## Development
+## Usage
 
-Once the setup is complete, you can execute the command below in the root
-directory of your project.
+To install the package, run the following command in your terminal:
+
+```bash
+npm install --dev github:anvil-solutions/lighthouse-crawler
+```
+
+To use the package in your project, you can follow the example below:
 
 ```bash
 npx lighthouse-crawler --help
 ```
 
-Make sure you have npm (Node Package Manager) and Node.js installed on
-your system before running this command. Additionally, run `npm install` in
-the project's root directory to install all required dependencies.
+## Development
+
+Run `npm install` in the project's root directory to install all required
+dependencies. Additionally, make sure you have npm (Node Package Manager) and
+Node.js installed on your system before running this command.
 
 ## Linting
 
@@ -40,4 +47,13 @@ Stylelint:
 
 ```bash
 npm run stylelint
+```
+
+## Testing
+
+To ensure your code is functioning correctly and to catch any potential issues
+early, you can use the following command to run tests using Vitest:
+
+```bash
+npm run test
 ```

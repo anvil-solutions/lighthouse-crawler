@@ -4,6 +4,11 @@
   "main": "./src/index.js",
   "bin": "./src/bin.js",
   "types": "./generated/index.d.ts",
+  "files": [
+    "./generated/**",
+    "./src/**",
+    "!**/*.test.js"
+  ],
   "scripts": {
     "eslint": "eslint --no-eslintrc -c .eslintrc.json .",
     "generate-types": "rm -rf ./generated && tsc -p tsconfig.d.json",
